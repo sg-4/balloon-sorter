@@ -75,5 +75,9 @@ h1 {
 .hide {
   visibility: hidden;
 }
- 
+
+.selected {
+  outline: 3px solid gold;
+  box-shadow: 0 0 10px 2px gold;
+}
 
