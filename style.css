@@ -1,0 +1,79 @@
+:root {
+  --barbie-pink: #E0218A;
+  --raspberry: #ED5C9B;
+  --light-pink: #F7B9D7;
+  --cream: #FBFBFB;
+}
+
+body {
+  background: var(--light-pink);
+  font-family: 'Comic Sans MS', sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 1rem;
+  position: relative;
+}
+
+h1 {
+  background: var(--barbie-pink);
+  color: #fff;
+  padding: 0.5rem;
+  border-radius: 8px;
+}
+
+#game-header {
+  background: var(--raspberry);
+  color: #fff;
+  margin: 1rem auto;
+  padding: 0.5rem 1rem;
+  width: fit-content;
+  border-radius: 6px;
+}
+
+#slots, #balloons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+.slot {
+  width: 80px;
+  height: 80px;
+  font-size: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;         /* remove dashed border */
+  background: transparent; /* no background circle */
+}
+
+
+.slot.over {
+  box-shadow: 0 0 10px var(--raspberry);
+}
+
+.balloon {
+  background: var(--barbie-pink);
+  cursor: grab;
+  z-index: 2; /* above slots */
+}
+
+.balloon:active {
+  transform: scale(1.1);
+}
+
+.sparkle {
+  animation: sparkleAnim 0.5s ease-out;
+}
+
+@keyframes sparkleAnim {
+  0% { box-shadow: 0 0 0 gold; }
+  50% { box-shadow: 0 0 20px 10px gold; }
+  100% { box-shadow: 0 0 0 gold; }
+}
+
+.hide {
+  visibility: hidden;
+}
+ 
+

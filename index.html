@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>💕 Barbie Balloon Sorter 💕</title>
+  <style>
+    /* Barbie Color Palette */
+    :root {
+      --barbie-pink: #E0218A;     /* Classic Barbie */
+      --rose-pink:   #ED5C9B;
+      --pastel-pink: #F18DBC;
+      --baby-pink:   #F7B9D7;
+      --cream:       #FBFBFB;
+    }
+
+    body {
+      background: var(--baby-pink);
+      color: var(--barbie-pink);
+      font-family: 'Comic Sans MS', 'Arial Rounded MT', sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 1rem;
+    }
+
+    h1 {
+      background: var(--barbie-pink);
+      color: white;
+      padding: 0.5rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(224, 33, 138, 0.4);
+    }
+
+    #game-header {
+      font-size: 1.25rem;
+      margin: 1rem 0;
+      padding: 0.5rem;
+      background: var(--rose-pink);
+      color: white;
+      border-radius: 6px;
+    }
+
+    #slots, #balloons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    .slot, .balloon {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      user-select: none;
+    }
+
+    .slot {
+      background: var(--cream);
+      border: 4px dashed var(--barbie-pink);
+    }
+
+    .balloon {
+      background: var(--barbie-pink);
+      color: white;
+      cursor: grab;
+      box-shadow: 0 4px 8px rgba(224, 33, 138, 0.4);
+      transition: transform 0.1s;
+    }
+
+    .balloon:active {
+      transform: scale(1.1);
+    }
+
+    .sparkle {
+      animation: sparkleAnim 0.5s ease-out;
+    }
+
+    @keyframes sparkleAnim {
+      0% { box-shadow: 0 0 0 rgba(255, 255, 0, 0); }
+      50% { box-shadow: 0 0 20px 10px gold; }
+      100% { box-shadow: 0 0 0 rgba(255, 255, 0, 0); }
+    }
+  </style>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+</head>
+<body>
+  <h1>💕 Barbie Balloon Sorter 💕</h1>
+  <div id="game-instructions" style="font-size:1.3rem; color:#E0218A; margin-bottom:0.5rem; font-family:'Comic Sans MS','Arial Rounded MT',sans-serif;">
+    Match the shapes to make Barbie happy!
+  </div>
+  <div id="game-header">Level 1: Shapes — 0/3 matched</div>
+
+  <!-- Drop targets -->
+  <div id="slots">
+    <div class="slot" data-shape="star">⭐</div>
+    <div class="slot" data-shape="heart">❤️</div>
+    <div class="slot" data-shape="circle">⚪️</div>
+  </div>
+    
+
+  <!-- Draggable balloons -->
+  <div id="balloons">
+    <!-- Balloons will be rendered by JS -->
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
