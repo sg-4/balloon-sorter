@@ -29,6 +29,34 @@ if (!playAgainBtn) {
 }
 playAgainBtn.onclick = resetGame;
 
+// Attach slot event listeners ONCE
+slots.forEach(slot => {
+  slot.addEventListener('dragenter', e => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    slot.classList.add('over');
+  });
+  slot.addEventListener('dragover', e => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+  });
+  slot.addEventListener('dragleave', () => slot.classList.remove('over'));
+  slot.addEventListener('drop', e => {
+    e.preventDefault();
+    const dropZone = e.currentTarget;
+    dropZone.classList.remove('over');
+    const id = e.dataTransfer.getData('text/plain');
+    const b = document.getElementById(id);
+    if (!b) return;
+    if (b.dataset.shape === dropZone.dataset.shape) {
+      dropZone.appendChild(b);
+      onCorrect();
+    } else {
+      playAudio('wrong');
+    }
+  });
+});
+
 function shuffleArray(arr) {
   let array = arr.slice(); // copy to avoid mutating original
   for (let i = array.length - 1; i > 0; i--) {
@@ -84,33 +112,6 @@ function setupDragAndDrop() {
       setTimeout(() => b.classList.add('hide'), 0);
     });
     b.addEventListener('dragend', () => b.classList.remove('hide'));
-  });
-
-  slots.forEach(slot => {
-    slot.addEventListener('dragenter', e => {
-      e.preventDefault();
-      e.dataTransfer.dropEffect = 'move';
-      slot.classList.add('over');
-    });
-    slot.addEventListener('dragover', e => {
-      e.preventDefault();
-      e.dataTransfer.dropEffect = 'move';
-    });
-    slot.addEventListener('dragleave', () => slot.classList.remove('over'));
-    slot.addEventListener('drop', e => {
-      e.preventDefault();
-      const dropZone = e.currentTarget;
-      dropZone.classList.remove('over');
-      const id = e.dataTransfer.getData('text/plain');
-      const b = document.getElementById(id);
-      if (!b) return;
-      if (b.dataset.shape === dropZone.dataset.shape) {
-        dropZone.appendChild(b);
-        onCorrect();
-      } else {
-        playAudio('wrong');
-      }
-    });
   });
 }
 
