@@ -115,9 +115,8 @@ function setupDragAndDrop() {
 }
 
 function clearAllBalloons() {
-  // Remove all balloons from both the main container and slots
-  const allBalloons = document.querySelectorAll('.balloon');
-  allBalloons.forEach(b => b.remove());
+  // Remove all balloons from both the main container and all slots
+  document.querySelectorAll('.balloon').forEach(b => b.remove());
 }
 
 function startGame() {
@@ -125,8 +124,8 @@ function startGame() {
   balloonInstanceCounter = 0; // Reset counter for each set
   header.textContent = `Set ${setNumber}: Match the shapes — 0/${balloonData.length}`;
   playAgainBtn.style.display = 'none'; // Always hide at start
-  clearAllBalloons(); // Remove all balloons from everywhere
-  renderBalloons();
+  clearAllBalloons(); // Remove all balloons from everywhere (main container and slots)
+  renderBalloons();   // Add new, randomized balloons to the main container
   setupDragAndDrop();
 }
 
