@@ -9,6 +9,7 @@ let matches = 0;
 const jsConfetti = new JSConfetti();
 let balloonInstanceCounter = 0;
 let setNumber = 1;
+let selectedBalloon = null;
 
 // Add Play Again button
 let playAgainBtn = document.getElementById('play-again-btn');
@@ -120,6 +121,40 @@ function clearAllBalloons() {
   document.querySelectorAll('.balloon').forEach(b => b.remove());
 }
 
+function setupTouchEvents() {
+  const balloons = document.querySelectorAll('.balloon');
+  balloons.forEach(b => {
+    b.ontouchstart = function(e) {
+      e.preventDefault();
+      // Highlight the selected balloon
+      if (selectedBalloon) selectedBalloon.classList.remove('selected');
+      selectedBalloon = b;
+      b.classList.add('selected');
+    };
+  });
+
+  slots.forEach(slot => {
+    slot.ontouchstart = function(e) {
+      e.preventDefault();
+      if (selectedBalloon) {
+        // Only allow if slot is empty
+        if (!slot.querySelector('.balloon')) {
+          if (selectedBalloon.dataset.shape === slot.dataset.shape) {
+            slot.appendChild(selectedBalloon);
+            selectedBalloon.classList.remove('selected');
+            selectedBalloon = null;
+            onCorrect();
+          } else {
+            playAudio('wrong');
+            selectedBalloon.classList.remove('selected');
+            selectedBalloon = null;
+          }
+        }
+      }
+    };
+  });
+}
+
 function startGame() {
   matches = 0;
   balloonInstanceCounter = 0; // Reset counter for each set
@@ -128,6 +163,7 @@ function startGame() {
   clearAllBalloons(); // Remove all balloons from everywhere (main container and slots)
   renderBalloons();   // Add new, randomized balloons to the main container
   setupDragAndDrop();
+  setupTouchEvents(); // Add touch support for mobile
 }
 
 startGame();
